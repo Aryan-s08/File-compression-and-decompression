@@ -22,11 +22,16 @@ string to_binary(int x, int sz) {
 }
 
 int main(int argc, char* argv[]) {
-    if (argc < 2) {
+    if (argc < 4) {
         cerr << "Usage: " << argv[0] << " <input-file>\n";
         return 1;
     }
     string filename = argv[1];
+    maxlenb = stoi(argv[2]);
+    maxdispb = stoi(argv[3]);
+    maxlen = (1 << maxlenb) - 1;
+    maxdisp = (1 << maxdispb);
+    
     ifstream fin(filename);
     if (!fin) {
         cerr << "Error: cannot open input file '" << filename << "'\n";
