@@ -27,6 +27,12 @@ int main(int argc, char *argv[]) {
     string qname = argv[2];
     int size = stoi(argv[3]);
     int distance = stoi(argv[4]);
+    string output_file = fname;
+    size_t pos = output_file.find("compressed_");
+    if (pos != string::npos) {
+        output_file.erase(pos, string("compressed_").length());
+    }
+    output_file = "decompressed_" + output_file;
     ifstream fin(fname);
     if (!fin) {
         cerr << "Error: cannot open input file '" << fname << '\n';
@@ -64,9 +70,9 @@ int main(int argc, char *argv[]) {
     }
     result[rlen] = '\0';
     printf("%s",result);
-    ofstream fout(fname, ios::trunc);
+    ofstream fout(output_file, ios::trunc);
     if (!fout) {
-        cerr << "Error: cannot open output file '" << fname << "' for writing.\n";
+        cerr << "Error: cannot open output file '" << output_file << "' for writing.\n";
         return 4;
     }
     fout << result;
