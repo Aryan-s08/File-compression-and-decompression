@@ -4,9 +4,9 @@ using namespace std;
 
 #define ll long long
 
-int maxlen = 7, maxlenb = 3;
-int maxdisp = 32, maxdispb = 5;
+int maxlen, maxdisp, maxdispb, maxlenb;
 queue<char> q;
+vector<string> vd, vs;
 
 string to_binary(int x, int sz) {
     string res;
@@ -21,6 +21,14 @@ string to_binary(int x, int sz) {
     return res;
 }
 
+void precompute() {
+    vd.resize(maxdisp + 10);
+    vs.resize(maxlen + 10);
+
+    for(int i = 0; i < maxdisp; i++)   vd[i] = to_binary(i, maxdispb);
+    for(int i = 0; i <= maxlen; i++)   vs[i] = to_binary(i, maxlenb);
+}
+
 int main(int argc, char* argv[]) {
     if (argc < 4) {
         cerr << "Usage: " << argv[0] << " <input-file>\n";
@@ -31,7 +39,8 @@ int main(int argc, char* argv[]) {
     maxdispb = stoi(argv[3]);
     maxlen = (1 << maxlenb) - 1;
     maxdisp = (1 << maxdispb);
-    
+    precompute();
+
     ifstream fin(filename);
     if (!fin) {
         cerr << "Error: cannot open input file '" << filename << "'\n";
@@ -46,12 +55,12 @@ int main(int argc, char* argv[]) {
 
     int final_size = 0;
     string s;
-    char c;
-    while((c = fin.get()) && c != EOF) {
-        s.push_back(c);
+    int ch;
+    while((ch = fin.get()) != EOF) {
+        s.push_back(char(ch));
     }
     cout << "File outputted successfully\n";
-    cout << s.size() << ' '  << int(*s.rbegin()) << endl;
+    cout << "Size of input: " << s.size() << endl;
 
     for(int i = 0; i < s.size(); ) {
         int res_size = 0, res_dist = 0;
@@ -71,20 +80,36 @@ int main(int argc, char* argv[]) {
             }
         }
 
-        // cout << res_dist << ' ' << res_size << ' ' << s[i] << endl;
-        if(res_size == 0) {
-            fout << to_binary(0, maxlenb);
+        if(res_size < (maxdispb + 7) / 8) {
+            fout << vs[0];
             q.push(s[i]);
             i++;
             final_size += maxlenb;
         }
         else {
-            fout << to_binary(res_size, maxlenb) << to_binary(res_dist - 1, maxdispb);
+            fout << vs[res_size] << vd[res_dist - 1];
             i += res_size;
             final_size += maxdispb + maxlenb;
         }
     }
 
-    cout << "Initial size: " << s.size() * 8 << endl;
-    cout << "Final size: " << final_size + q.size() * 8 << endl;\
+    int initial_size = 8 * s.size();
+    final_size += q.size() * 8;
+
+    cout << "Initial size: " << initial_size << endl;
+    cout << "Final size: " << final_size << endl;
+    cout << "Percentage compressed: " << (long double) (initial_size - final_size) / initial_size * 100 << endl;
+
+    fout.close();
+    string output_queue = "compressed_queue_" + filename ;
+    fout.open(output_queue);
+    if (!fout) {
+        cerr << "Error: cannot create output file '" << output_queue << "'\n";
+        return 4;
+    }
+
+    while(q.size()) {
+        fout << q.front();
+        q.pop();
+    }
 }
