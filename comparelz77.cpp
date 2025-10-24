@@ -33,8 +33,9 @@ int main(int argc, char *argv[]) {
     }
     fin.close();
     if (f1 != f2) {
-        printf("Files are not the same");
+        printf("Files are not the same\n\n");
     } else {
-        printf("Files are the same");
+        printf("Files are the same\n\n");
     }
+
 }
