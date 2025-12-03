@@ -183,7 +183,7 @@ btn1 = ctk.CTkButton(preset_frame, text="Fast Compression",
 btn1.pack(pady=5)
 
 btn2 = ctk.CTkButton(preset_frame, text="Normal Compression",
-                     width=200, command=lambda: run_fixed(3, 10))
+                     width=200, command=lambda: run_fixed(4, 14))
 btn2.pack(pady=5)
 
 btn3 = ctk.CTkButton(preset_frame, text="Slow Compression",
@@ -216,3 +216,4 @@ run_btn2.pack(pady=15)
 
 
 app.mainloop()
+
