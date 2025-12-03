@@ -64,13 +64,21 @@ pair<int, int> compute_hash(int l, int r) {
     return {(int)x1, (int)x2};
 }
 
+string extract_filename(const string &filepath) {
+    size_t pos = filepath.find_last_of("/\\");
+    if (pos == string::npos)
+        return filepath;
+    return filepath.substr(pos + 1);
+}
+
 int main(int argc, char* argv[]) {
     auto start = std::chrono::high_resolution_clock::now();
     if (argc < 4) {
         cerr << "Usage: " << argv[0] << " <input-file>\n";
         return 1;
     }
-    string filename = argv[1];
+    string filepath = argv[1];
+    string filename = extract_filename(filepath);
     maxlenb = stoi(argv[2]);
     maxdispb = stoi(argv[3]);
     maxlen = (1 << maxlenb) - 1;
