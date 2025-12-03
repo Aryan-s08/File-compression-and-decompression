@@ -135,7 +135,6 @@ int main(int argc, char* argv[]) {
 
     q.push_back('\0');
     fwrite(q.c_str(), 1, q.size(), output_file);
-    cout << buff_index << ' ' << (int) buffer << endl;
     for(int i = 8 - buff_index; i < 16; i++)    {
         write_bits(0, 1);
         // cout << i << ' ' << (int)buffer << endl;
