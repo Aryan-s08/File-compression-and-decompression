@@ -179,7 +179,7 @@ ctk.CTkLabel(preset_frame, text="Preset Compression Settings:",
              font=("Arial", 14, "bold")).pack(pady=5)
 
 btn1 = ctk.CTkButton(preset_frame, text="Fast Compression",
-                     width=200, command=lambda: run_fixed(2, 5))
+                     width=200, command=lambda: run_fixed(3, 9))
 btn1.pack(pady=5)
 
 btn2 = ctk.CTkButton(preset_frame, text="Normal Compression",
@@ -216,4 +216,5 @@ run_btn2.pack(pady=15)
 
 
 app.mainloop()
+
 
