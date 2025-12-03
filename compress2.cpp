@@ -85,6 +85,10 @@ int main(int argc, char* argv[]) {
     maxdisp = (1 << maxdispb);
 
     s = read_file(filename);
+    if (s.empty()) {
+        cout << "File is empty or could not be read." << endl;
+        return 1; 
+    }
     n = s.size();
     ll initial_size = s.size() * 8ll, final_size = 24;
     build_hashes();
