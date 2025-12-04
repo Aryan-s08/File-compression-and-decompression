@@ -2,8 +2,7 @@ import customtkinter as ctk
 from tkinter import filedialog, messagebox
 import subprocess
 import os
-
-# Executables
+
 COMPRESS_EXEC = "/home/aub/Desktop/Projects/FCAD/compress"
 SECOND_EXEC = "/home/aub/Desktop/Projects/FCAD/de"
 
@@ -24,10 +23,6 @@ def select_input_file2():
         input_entry2.delete(0, "end")
         input_entry2.insert(0, path)
 
-
-# ----------------------------------------------
-# Helper to run .exe programs
-# ----------------------------------------------
 def _run_exec(exec_path, args):
     if not os.path.exists(exec_path):
         return False, f"Executable not found:\n{exec_path}"
@@ -55,10 +50,7 @@ def _run_exec(exec_path, args):
                f"STDERR:\n{stderr or '<none>'}")
         return True, msg
 
-
-# ----------------------------------------------------
-# Manual slider run
-# ----------------------------------------------------
+
 def run_slider_values():
     input_path = input_entry1.get()
 
@@ -75,10 +67,7 @@ def run_slider_values():
     else:
         messagebox.showinfo("Success", f"Compression done.\n\n{x=}, {y=}\n\n" + msg)
 
-
-# ----------------------------------------------------
-# Preset button runners
-# ----------------------------------------------------
+
 def run_fixed(x, y):
     input_path = input_entry1.get()
 
@@ -91,11 +80,7 @@ def run_fixed(x, y):
         messagebox.showerror("Program Error", msg)
     else:
         messagebox.showinfo("Success", f"Compression done with preset.\n\nx={x}, y={y}\n\n" + msg)
-
-
-# ----------------------------------------------------
-# Second (decompression) program
-# ----------------------------------------------------
+
 def run_processing2():
     input_path = input_entry2.get()
 
@@ -109,10 +94,7 @@ def run_processing2():
     else:
         messagebox.showinfo("Success", "Decompression completed!\n\n" + msg)
 
-
-# ----------------------------------------------------
-# GUI MAIN WINDOW
-# ----------------------------------------------------
+
 app = ctk.CTk()
 app.title("File Compression and Decompression")
 app.geometry("550x750")
@@ -120,9 +102,7 @@ app.geometry("550x750")
 title = ctk.CTkLabel(app, text="File Compression and Decompression",
                      font=("Arial", 22, "bold"))
 title.pack(pady=15)
-
-
-# ------------------- First Program Section -------------------------
+
 frame1 = ctk.CTkFrame(app)
 frame1.pack(pady=10, padx=20, fill="x")
 
@@ -136,9 +116,7 @@ input_entry1.pack(side="left", padx=5)
 
 browse_btn1 = ctk.CTkButton(file_frame1, text="Browse", width=90, command=select_input_file1)
 browse_btn1.pack(side="left")
-
-
-# ------------------- Sliders -------------------------
+
 
 def update_size_label(value):
     size_label.configure(text=f"Selected: {int(float(value))}")
@@ -169,9 +147,7 @@ disp_label.pack()
 manual_btn = ctk.CTkButton(frame1, text="Compress (Slider Values)",
                            width=220, command=run_slider_values)
 manual_btn.pack(pady=12)
-
-
-# ------------------- Preset Buttons -------------------------
+
 preset_frame = ctk.CTkFrame(frame1)
 preset_frame.pack(pady=15)
 
@@ -189,13 +165,9 @@ btn2.pack(pady=5)
 btn3 = ctk.CTkButton(preset_frame, text="Slow Compression",
                      width=200, command=lambda: run_fixed(5, 18))
 btn3.pack(pady=5)
-
-
-# ------------------- Spacer -------------------------
+
 ctk.CTkLabel(app, text="", height=10).pack(pady=10)
-
-
-# ------------------- Second Program Section -------------------------
+
 frame2 = ctk.CTkFrame(app)
 frame2.pack(pady=10, padx=20, fill="x")
 
