@@ -9,6 +9,7 @@ int qlen = 0;
 char result[10000000];
 int rlen = 0;
 
+//Binary to Decimal
 int bintodec(int *idx, int count, const string &str) {
     int j = 1, n = 0;
     while (j <= count) {
