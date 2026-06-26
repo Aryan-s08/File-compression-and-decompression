@@ -10,6 +10,6 @@ pg1184 - Example text files
 
 How to run:
 
-```git clone https://github.com/Aryan-s08/File-compression-and-decompression.git```
-```make```
-```./main```
+```git clone https://github.com/Aryan-s08/File-compression-and-decompression.git```<br/>
+```make```<br/>
+```./main```<br/>
