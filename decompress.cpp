@@ -9,6 +9,7 @@ int qlen = 0;
 char result[10000000];
 int rlen = 0;
 
+//Binary to Decimal
 int bintodec(int *idx, int count, const string &str) {
     int j = 1, n = 0;
     while (j <= count) {
@@ -51,9 +52,15 @@ int main(int argc, char *argv[]) {
     }
     int size = fin.get();
     int distance = fin.get();
+    int b2 = fin.get();
+    int b3 = fin.get();
+    int b4 = fin.get();
+    int b5 = fin.get();
+    int queue_size = b2 | (b3 << 8) | (b4 << 16) | (b5 << 24); 
     string q;
     int ch;
-    while((ch = fin.get()) != 0) {
+    for(int i = 0; i < queue_size; i++) {
+        ch = fin.get();
         q.push_back(ch);
     }
     string str;
