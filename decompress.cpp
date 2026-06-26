@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
         output_file.erase(pos, string("compressed_").length());
     }
     output_file = "decompressed_" + filename_without_extension(output_file) + ".txt";
-    ifstream fin(fname);
+    ifstream fin(fname, ios::binary);
     if (!fin) {
         cerr << "Error: cannot open input file '" << fname << '\n';
         return 2;
@@ -67,14 +67,13 @@ int main(int argc, char *argv[]) {
     int c = 0;
     while ((ch = fin.get()) != EOF) {
         for (int i = 0; i < 8; i++) {
-            str.push_back(((ch & 128)/128 + '0'));
-            ch = ch << 1;
-
+            str.push_back(((ch & 1) + '0'));
+            ch >>= 1;
         }
     }
     str.push_back('\0');
     int i = 0;
-   while (str[i] != '\0') {
+    while (str[i] != '\0') {
         int size1 = 0, dist1 = 0, l = 0;
         size1 = bintodec(&i, size, str);
         if (size1 == 0) {
@@ -89,7 +88,7 @@ int main(int argc, char *argv[]) {
         }
     }
     result[rlen] = '\0';
-    ofstream fout(output_file, ios::trunc);
+    ofstream fout(output_file, ios::trunc | ios::binary);
     if (!fout) {
         cerr << "Error: cannot open output file '" << output_file << "' for writing.\n";
         return 4;
